@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    image: "postgres:latest"
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${CLI_DATABASE_USER}
+      POSTGRES_DB: ${CLI_DATABASE_NAME}
+      POSTGRES_PASSWORD: ${CLI_DATABASE_PASSWORD}
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local
