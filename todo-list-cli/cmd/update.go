@@ -12,30 +12,20 @@ import (
 	"todo-list-cli/promptui_utils"
 )
 
-var noteName string
-var description string
-
-var addCmd = &cobra.Command{
-	Use:   "add",
+// updateCmd represents the update command
+var updateCmd = &cobra.Command{
+	Use:   "update",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(noteName) == 0 || len(description) == 0 {
-			fmt.Println("Please enter a note name/description")
-			return
-		}
-		note, err := data.GetNoteByName(noteName)
-		if err != nil && !errors.Is(err, sql.ErrNoRows) {
-			fmt.Println("something went wrong trying to get note by name")
+		note, err := promptui_utils.PrintPrompUiNotes()
+		if err != nil {
+			fmt.Printf("Prompt UI note could not be displayed, error %v\n", err)
 			return
 		}
 
-		if note != nil {
-			fmt.Println("note already exists")
-			return
-		}
+		noteName := promptui_utils.UserInputToUpdateNote("Name")
 
 		categoryName, err := promptui_utils.PrintPromptUiCategories()
-
 		id, err := data.FindCategoryByName(*categoryName)
 		if err != nil && !errors.Is(err, sql.ErrNoRows) {
 			fmt.Println("something went wrong trying to get category")
@@ -50,22 +40,24 @@ var addCmd = &cobra.Command{
 			}
 		}
 
-		note, err = data.InsertNote(data.Note{
-			NoteName:    noteName,
+		description := promptui_utils.UserInputToUpdateNote("Description")
+
+		_, err = data.UpdateNote(data.NoteUpdate{
+			NoteName:    *note,
+			NewNoteName: noteName,
 			Description: description,
 			CategoryId:  id,
 		})
 		if err != nil {
+			fmt.Printf("Error updating note: %v\n", err)
 			return
 		}
 
-		fmt.Printf("Note added successfully: \n\tNote: %v\n\tDescription: %v\n\tCategory: %v\n", note.NoteName, note.Description, categoryName)
+		fmt.Printf("Note updated successfully: \n\tNote: %v\n\tDescription: %v\n\tCategory: %v\n", *note, description, *categoryName)
+
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(addCmd)
-
-	addCmd.Flags().StringVarP(&noteName, "note", "n", "", "note to add")
-	addCmd.Flags().StringVarP(&description, "description", "d", "", "description of your note")
+	rootCmd.AddCommand(updateCmd)
 }
