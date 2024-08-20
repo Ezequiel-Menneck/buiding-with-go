@@ -15,7 +15,7 @@ var (
 		Content: "Body eeeeee",
 		Emails:  []string{"test@test.com"},
 	}
-	service = Service{}
+	service = ServiceImp{}
 )
 
 type RepositoryMock struct {
@@ -25,6 +25,10 @@ type RepositoryMock struct {
 func (r *RepositoryMock) Save(campaign *Campaign) error {
 	args := r.Called(campaign)
 	return args.Error(0)
+}
+
+func (r *RepositoryMock) Get() ([]Campaign, error) {
+	return nil, nil
 }
 
 func Test_Create_Campaign(t *testing.T) {
