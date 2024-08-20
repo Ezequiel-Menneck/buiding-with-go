@@ -1,0 +1,27 @@
+- go version: Vê a versão instalado
+- go env: Vê as variáveis de ambiente go
+- go help: Vê os comandos e oque fazem
+- go run <file_name>: roda o arquivo especificado
+- go run \*.go: Usamos quando separamos o projeto em modulo e um aquivo depende de outro arquivo que ta em outro módulo
+- go build:
+	- para um executável
+		- cria o binário
+		- informa se tem erro
+		- se não houver erros cria um executável e salva no diretório atual
+	- para um pacote
+		- gera o arquivo
+		- informa caso tem erro
+		- descarta o executável
+	- Diferença entre um executável e pacote:
+		- o executável tem um main.go o pacote não, ele será usado onde tem um main.go
+- go install
+	- para um executável:
+		- faz o build
+		- nomeia o arquivo com o nome do diretório atual
+		- salva o arquivo binário em $GOPATH/bin
+	- para um pacote:
+		- faz o build
+		- salva o arquivo binário em $GOPATH/pkg
+		- cria arquive files (arquivo.a) os arquivos pré-compilados utilizados pelos imports
+- - flags
+	- -race: verifica se tem race conditions no código

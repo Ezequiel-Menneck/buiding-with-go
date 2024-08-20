@@ -1,0 +1,13 @@
+- Opção 1: Uma pasta, vários arquivos
+	- package declaration em todos os arquivos
+	- package scope: um elemento de um arquivo é acessível de todos os arquivos
+	- imports tem file scope, ou seja só pode ser acessado no file que ta importado
+- Opção 2: separando por packages
+	- pastas diferentes
+	- requer imports (import meuPackage)
+	- para usar: meuPackage.Função()
+- Exportado vs. Não-exportado / Visível, vs Não-visível
+	- Em go não temos o public/private, não usamos esse termo
+	- É somente questão de capitalizão
+		- Começa com maiúscula: exportado, visível fora do package
+		- Começa com minuscula: não exportado, não visível fora do package

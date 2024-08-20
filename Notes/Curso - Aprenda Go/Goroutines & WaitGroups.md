@@ -1,0 +1,12 @@
+- Oque são Goroutines?
+	- São "Threads" (mesmo conceito, não exatamente a msm execução)
+		- Threads: Uma forma de um processo dividir a si mesmo em duas ou mais tarefas que podem ser executadas concorrencialmente.
+	- A principio são independentes (mas podem se comunicar)
+	- Para definir uma Goroutines usamos `go func` na função
+	- Se só usamos `go func`temos chance de nosso programa terminar a Goroutine não executar, já que mandamos ela pro "capeta" executar em qualquer canto. O modo de resolver isso é:
+		- sync.WaitGroup que serve para esperar uma coleção de Goroutines executar
+		- sync.WaitGroup tem 3 métodos:
+			- Add(i int) - fala quantas goroutines teremos que esperar
+			- Wait() - diz pro nosso código que teremos que esperar X goroutines (esse x é definido na função Add)
+			- Done() - diz que a go routine terminou (esse cara usamos dentro da função que será goroutine)
+https://go.dev/play/p/cZglEGUFxN1
