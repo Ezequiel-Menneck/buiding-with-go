@@ -14,7 +14,7 @@ const (
 
 type Contact struct {
 	Id         string `gorm:"size:50"`
-	Email      string `validate:"email"`
+	Email      string `validate:"email" gorm:"size:50"`
 	CampaignId string `gorm:"size:50"`
 }
 
