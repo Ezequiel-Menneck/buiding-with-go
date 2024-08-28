@@ -23,6 +23,6 @@ func (c *CampaignRepository) Get() ([]campaign.Campaign, error) {
 
 func (c *CampaignRepository) GetById(id string) (*campaign.Campaign, error) {
 	var campaignToReturn campaign.Campaign
-	tx := c.Db.First(&campaignToReturn, id)
+	tx := c.Db.First(&campaignToReturn, "id = ?", id)
 	return &campaignToReturn, tx.Error
 }
