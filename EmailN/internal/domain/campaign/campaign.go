@@ -13,7 +13,9 @@ const (
 )
 
 type Contact struct {
-	Email string `validate:"email"`
+	Id         string
+	Email      string `validate:"email"`
+	CampaignId string
 }
 
 type Campaign struct {
@@ -30,6 +32,7 @@ func NewCampaign(name, content string, emails []string) (*Campaign, error) {
 	contacts := make([]Contact, len(emails))
 	for i, v := range emails {
 		contacts[i].Email = v
+		contacts[i].Id = xid.New().String()
 	}
 
 	campaign := &Campaign{
