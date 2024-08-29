@@ -24,7 +24,8 @@ func main() {
 		CampaignService: &campaignService,
 	}
 	r.Post("/campaign", endpoints.HandlerError(handler.CampaignPost))
-	r.Get("/campaign/{id}", endpoints.HandlerError(handler.CampaignGetById))
+	r.Get("/campaigns/{id}", endpoints.HandlerError(handler.CampaignGetById))
+	r.Patch("/campaigns/cancel/{id}", endpoints.HandlerError(handler.CampaignCancelPatch))
 
 	err := http.ListenAndServe(":8080", r)
 	if err != nil {
