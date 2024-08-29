@@ -1,4 +1,4 @@
-package mock
+package internalmock
 
 import (
 	"emailn/internal/contract"
@@ -21,6 +21,11 @@ func (r *CampaignServiceMock) GetById(id string) (*contract.CampaignResponse, er
 	}
 	return args.Get(0).(*contract.CampaignResponse), args.Error(1)
 }
-func (r *CampaignServiceMock) Cancel(id string) error {
+
+func (r *CampaignServiceMock) Update(id string) error {
+	return nil
+}
+
+func (r *CampaignServiceMock) Delete(id string) error {
 	return nil
 }

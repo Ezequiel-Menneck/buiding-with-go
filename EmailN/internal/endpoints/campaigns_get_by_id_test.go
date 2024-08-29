@@ -2,7 +2,7 @@ package endpoints
 
 import (
 	"emailn/internal/contract"
-	internalmock "emailn/internal/test/mock"
+	internalmock "emailn/internal/test/internal-mock"
 	"errors"
 	assert2 "github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"

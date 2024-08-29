@@ -7,8 +7,9 @@ type NewCampaign struct {
 }
 
 type CampaignResponse struct {
-	Id      string
-	Name    string
-	Status  string
-	Content string
+	Id                   string
+	Name                 string
+	Status               string
+	Content              string
+	AmountOfEmailsToSend int
 }
