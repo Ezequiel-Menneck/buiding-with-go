@@ -15,6 +15,7 @@ func main() {
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
+	r.Use(endpoints.Auth)
 
 	db := database.NewDb()
 	campaignService := campaign.ServiceImp{
@@ -27,7 +28,7 @@ func main() {
 	r.Get("/campaigns/{id}", endpoints.HandlerError(handler.CampaignGetById))
 	r.Delete("/campaigns/delete/{id}", endpoints.HandlerError(handler.CampaignDelete))
 
-	err := http.ListenAndServe(":8080", r)
+	err := http.ListenAndServe(":8081", r)
 	if err != nil {
 		return
 	}
