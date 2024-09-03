@@ -71,30 +71,30 @@ func Test_Create_ValidateRepositorySave(t *testing.T) {
 
 func Test_GetById_ReturnCampaign(t *testing.T) {
 	assert := assert2.New(t)
-	campaign, _ := campaign.NewCampaign(newCampaign.Name, newCampaign.Content, newCampaign.Emails, newCampaign.CreatedBy)
+	campaignMock, _ := campaign.NewCampaign(newCampaign.Name, newCampaign.Content, newCampaign.Emails, newCampaign.CreatedBy)
 	repositoryMock := new(internalmock.CampaignRepositoryMock)
 	service.Repository = repositoryMock
 	repositoryMock.On("GetById", mock.MatchedBy(func(id string) bool {
-		return id == campaign.ID
-	})).Return(campaign, nil)
+		return id == campaignMock.ID
+	})).Return(campaignMock, nil)
 
-	campaignReturned, _ := service.GetById(campaign.ID)
+	campaignReturned, _ := service.GetById(campaignMock.ID)
 
-	assert.Equal(campaign.ID, campaignReturned.Id)
-	assert.Equal(campaign.Name, campaignReturned.Name)
-	assert.Equal(campaign.Content, campaignReturned.Content)
-	assert.Equal(campaign.Status, campaignReturned.Status)
-	assert.Equal(campaign.CreatedBy, campaignReturned.CreatedBy)
+	assert.Equal(campaignMock.ID, campaignReturned.Id)
+	assert.Equal(campaignMock.Name, campaignReturned.Name)
+	assert.Equal(campaignMock.Content, campaignReturned.Content)
+	assert.Equal(campaignMock.Status, campaignReturned.Status)
+	assert.Equal(campaignMock.CreatedBy, campaignReturned.CreatedBy)
 }
 
 func Test_GetById_ReturnErrorWhenSomethingWrongExist(t *testing.T) {
 	assert := assert2.New(t)
-	campaign, _ := campaign.NewCampaign(newCampaign.Name, newCampaign.Content, newCampaign.Emails, newCampaign.CreatedBy)
+	campaignMock, _ := campaign.NewCampaign(newCampaign.Name, newCampaign.Content, newCampaign.Emails, newCampaign.CreatedBy)
 	repositoryMock := new(internalmock.CampaignRepositoryMock)
 	service.Repository = repositoryMock
 	repositoryMock.On("GetById", mock.Anything).Return(nil, errors.New("something wrong"))
 
-	_, err := service.GetById(campaign.ID)
+	_, err := service.GetById(campaignMock.ID)
 
 	assert.Equal(internalerrors.ErrInternal.Error(), err.Error())
 }
