@@ -40,3 +40,8 @@ func (r *CampaignRepositoryMock) Start(campaign *campaign.Campaign) error {
 	args := r.Called(campaign.ID)
 	return args.Error(0)
 }
+
+func (r *CampaignRepositoryMock) GetCampaignsToBeSent() ([]campaign.Campaign, error) {
+	//args := r.Called(campaign.ID)
+	return nil, nil
+}
